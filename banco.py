@@ -192,7 +192,7 @@ class BancoDeDados:
                 cursor.execute("SELECT * FROM Veiculo")
                 for row in cursor.fetchall():
                     placa, cor, cpf_proprietario, id_marca = row
-                    veiculos.append(Veiculo(placa, cor, proprietario, marca))
+                    veiculos.append(Veiculo(placa, cor, cpf_proprietario, id_marca))
             
             except sqlite3.Error as e:
                 print(f"Erro ao buscar veículos: {e}")
@@ -243,3 +243,8 @@ class BancoDeDados:
                 print(f"Erro ao buscar marca por ID: {e}")
                 
         return None
+    
+    def fechar_conexao(self):
+        if self.conn:
+            self.conn.close()
+            self.conn = None

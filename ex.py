@@ -20,16 +20,16 @@ if __name__ == '__main__':
     veiculo1 = Veiculo(placa = "LRW1I27", cor = "Cinza", proprietario = pessoa1, marca = marca1)
     banco.inserir_veiculo(veiculo1)
     
-    #print("Pessoas:")
-    #for pessoa in banco.buscar_todas_pessoas():
-        #print(pessoa)
+    print("Pessoas:")
+    for pessoa in banco.buscar_todas_pessoas():
+        print(pessoa)
        
-    #print("\nMarcas:")
-    #for marca in banco.buscar_todas_marcas():
-        #print(marca)
+    print("\nMarcas:")
+    for marca in banco.buscar_todas_marcas():
+        print(marca)
         
-    #print("\nVeículos:")
-    #for veiculo in banco.buscar_todos_veiculos():
-        #print(veiculo)
+    print("\nVeículos:")
+    for veiculo in banco.buscar_todos_veiculos():
+        print(veiculo)
         
     banco.fechar_conexao()
