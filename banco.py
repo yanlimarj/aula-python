@@ -168,3 +168,78 @@ class BancoDeDados:
                 self.conn.commit()
             except sqlite3.Error as e:
                 print(f"Erro ao apagar marca: {e}")
+                
+    def buscar_todas_pessoas(self):
+        pessoas = []
+        if self.conn:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT * FROM Pessoa")
+                for row in cursor.fetchall():
+                    cpf, nome, nascimento, oculos = row
+                    pessoas.append(Pessoa(cpf, nome, nascimento, oculos))
+            
+            except sqlite3.Error as e:
+                print(f"Erro ao buscar pessoas: {e}")
+                
+        return pessoas
+    
+    def buscar_todos_veiculos(self):
+        veiculos = []
+        if self.conn:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT * FROM Veiculo")
+                for row in cursor.fetchall():
+                    placa, cor, cpf_proprietario, id_marca = row
+                    veiculos.append(Veiculo(placa, cor, proprietario, marca))
+            
+            except sqlite3.Error as e:
+                print(f"Erro ao buscar veículos: {e}")
+        
+        return veiculos
+    
+    def buscar_todas_marcas(self):
+        marcas = []
+        if self.conn:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT * FROM Marca")
+                for row in cursor.fetchall():
+                    nome, sigla, id = row
+                    marcas.append(Marca(nome, sigla, id))
+            
+            except sqlite3.Error as e:
+                print(f"Erro ao buscar marcas: {e}")
+                
+        return marcas
+    
+    def buscar_pessoa_por_cpf(self, cpf: int):
+        if self.conn:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT * FROM Pessoa WHERE cpf=?", (cpf,))
+                row = cursor.fetchone()
+                if row:
+                    cpf, nome, nascimento, oculos = row
+                    return Pessoa(cpf, nome, nascimento, oculos)
+                
+            except sqlite3.Error as e:
+                print(f"Erro ao buscar pessoa por CPF: {e}")
+                
+        return None
+    
+    def buscar_marca_por_id(self, id: int):
+        if self.conn:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT * FROM Marca WHERE id=?", (id,))
+                row = cursor.fetchone()
+                if row:
+                    id, nome, sigla = row
+                    return Marca(id, nome, sigla)
+                
+            except sqlite3.Error as e:
+                print(f"Erro ao buscar marca por ID: {e}")
+                
+        return None
